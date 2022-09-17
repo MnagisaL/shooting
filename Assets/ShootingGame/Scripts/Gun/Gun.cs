@@ -9,8 +9,6 @@ public class Gun : MonoBehaviour
     private float speed = 5.0f;
     [SerializeField]
     private float amplitude=0.2f;
-    [SerializeField]
-    private float sinSpeed = 2f;
 
     private void Update()
     {

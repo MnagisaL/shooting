@@ -8,8 +8,6 @@ public class GunController : MonoBehaviour
     [SerializeField]
     private GameObject gun;
     [SerializeField]
-    private Transform attackPoint;
-    [SerializeField]
     private float attackTime;
 
 
@@ -38,7 +36,7 @@ public class GunController : MonoBehaviour
             if (isAttacked)
             {
                 //Instatiate
-                Instantiate(gun, attackPoint.position, Quaternion.identity);
+                Instantiate(gun, this.transform.position, Quaternion.identity);
                 isAttacked = false;
                 attackTime = 0f;
             }
