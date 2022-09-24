@@ -17,7 +17,6 @@ public class SceneManage : MonoBehaviour
     }
 
     public Scene scene;
-
     private void Awake()
     {
         if (instance == null)
@@ -36,12 +35,13 @@ public class SceneManage : MonoBehaviour
         NextSneceKeyTitle();
         NextSneceKeyGame();
         NextSneceKeyEnding();
-        Debug.Log("今のシーン:" + scene);
+        //Debug.Log("今のシーン:" + scene);
     }
 
     //R:game
     //T:title
     //Y:ending
+
     public void NextSneceKeyTitle()
     {
         if (!Input.GetKeyDown(KeyCode.G)) return;

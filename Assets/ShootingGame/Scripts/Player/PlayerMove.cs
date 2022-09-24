@@ -18,18 +18,10 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     private float deceleration;
 
-    //“®‚¯‚é”ÍˆÍ  ‚Ì‚¿‚Ì‚¿Å‰‚ÉŽæ“¾‚Å‚«‚é‚æ‚¤‚É‚·‚é
-    [SerializeField]
-    private float MaxUp;
-    [SerializeField]
-    private float MaxDown;
-    [SerializeField]
-    private float MaxLeft;
-    [SerializeField]
-    private float MaxRight;
-
     private CurrentPlayerMove CurrentPlayerMove = new CurrentPlayerMove();
     DecelerationPlayer decelerationPlayer;
+
+    private StagesRange stagesRange=new StagesRange();
 
 
     private void Awake()
@@ -45,16 +37,6 @@ public class PlayerMove : MonoBehaviour
         PlayerMovingY();
         PlayerMovingX();
     }
-
-    private void Init()
-    {
-        //“®‚¯‚é”ÍˆÍ‚Ì‰ŠúÝ’è
-        //MaxUp = Screen.height / 2;
-        //MaxDown = -Screen.height / 2;
-        //MaxRight = Screen.width / 2;
-        //MaxLeft = -Screen.width / 2;
-    }
-
 
     //YŽ²‚Ì“®‚«‚ÌŠÇ—
     private void PlayerMovingY()
@@ -92,13 +74,13 @@ public class PlayerMove : MonoBehaviour
     private void PlayerMoving_CalcY(float playerSpeed)
     {
         Vector3 playerPos = this.transform.position;
-        if (IsOutPlayerDown())
+        if (stagesRange.IsOutStageObjDown(this.transform))
         {
-            playerPos.y = MaxDown + 0.001f;
+            playerPos.y = stagesRange.GetMaxDown() + 0.001f;
         }
-        else if (IsOutPlayerUp())
+        else if (stagesRange.IsOutStageObjUp(this.transform))
         {
-            playerPos.y = MaxUp - 0.001f;
+            playerPos.y = stagesRange.GetMaxUP() - 0.001f;
         }
         else
         {
@@ -111,40 +93,19 @@ public class PlayerMove : MonoBehaviour
     private void PlayerMoving_CalcX(float playerSpeed)
     {
         Vector3 playerPos = this.transform.position;
-        if (IsOutPlayerLeft())
+        if (stagesRange.IsOutStageObjLeft(this.transform))
         {
-            playerPos.x = MaxLeft + 0.001f;
+            playerPos.x = stagesRange.GetMaxLEFT() + 0.001f;
         }
-        else if (IsOutPlayerRight())
+        else if (stagesRange.IsOutStageObjRight(this.transform))
         {
-            playerPos.x = MaxRight - 0.001f;
+            playerPos.x = stagesRange.GetMaxRIGHT() - 0.001f;
         }
         else
         {
             playerPos.x += decelerationPlayer.DecelerationRatio(playerSpeed) * Time.deltaTime;
         }
         this.transform.position = playerPos;
-    }
-
-    //Player‚ªêŠO‚És‚Á‚½ê‡
-    private bool IsOutPlayerUp()
-    {
-        return this.transform.position.y > MaxUp;
-    }
-
-    private bool IsOutPlayerDown()
-    {
-        return this.transform.position.y < MaxDown;
-    }
-
-    private bool IsOutPlayerLeft()
-    {
-        return this.transform.position.x < MaxLeft;
-    }
-
-    private bool IsOutPlayerRight()
-    {
-        return this.transform.position.x > MaxRight;
     }
 
 
